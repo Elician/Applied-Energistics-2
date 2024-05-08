@@ -67,10 +67,7 @@ import appeng.tile.misc.*;
 import appeng.tile.networking.TileWireless;
 import appeng.tile.qnb.TileQuantumBridge;
 import appeng.tile.spatial.TileSpatialIOPort;
-import appeng.tile.storage.TileChest;
-import appeng.tile.storage.TileDrive;
-import appeng.tile.storage.TileIOPort;
-import appeng.tile.storage.TileSkyChest;
+import appeng.tile.storage.*;
 import appeng.util.Platform;
 import baubles.api.BaublesApi;
 import net.minecraft.entity.player.EntityPlayer;
@@ -117,6 +114,8 @@ public enum GuiBridge implements IGuiHandler {
     GUI_QUARTZ_KNIFE(ContainerQuartzKnife.class, QuartzKnifeObj.class, GuiHostType.ITEM, null),
 
     GUI_DRIVE(ContainerDrive.class, TileDrive.class, GuiHostType.WORLD, SecurityPermissions.BUILD),
+
+    GUI_DRIVE_T2(ContainerDriveT2.class, TileDriveT2.class, GuiHostType.WORLD, SecurityPermissions.BUILD),
 
     GUI_VIBRATION_CHAMBER(ContainerVibrationChamber.class, TileVibrationChamber.class, GuiHostType.WORLD, null),
 

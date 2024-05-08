@@ -86,6 +86,7 @@ public class GuiIOPort extends GuiUpgradeable {
         definitions.items().cell1k().maybeStack(1).ifPresent(cell1kStack -> this.drawItem(offsetX + 66 - 8, offsetY + 17, cell1kStack));
 
         definitions.blocks().drive().maybeStack(1).ifPresent(driveStack -> this.drawItem(offsetX + 94 + 8, offsetY + 17, driveStack));
+        definitions.blocks().driveT2().maybeStack(1).ifPresent(driveStack -> this.drawItem(offsetX + 94 + 8, offsetY + 17, driveStack));
     }
 
     @Override

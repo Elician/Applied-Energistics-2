@@ -78,10 +78,7 @@ import appeng.tile.networking.*;
 import appeng.tile.qnb.TileQuantumBridge;
 import appeng.tile.spatial.TileSpatialIOPort;
 import appeng.tile.spatial.TileSpatialPylon;
-import appeng.tile.storage.TileChest;
-import appeng.tile.storage.TileDrive;
-import appeng.tile.storage.TileIOPort;
-import appeng.tile.storage.TileSkyChest;
+import appeng.tile.storage.*;
 import com.google.common.base.Verify;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDispenser;
@@ -132,6 +129,7 @@ public final class ApiBlocks implements IBlocks {
     private final ITileDefinition multiPart;
     private final ITileDefinition controller;
     private final ITileDefinition drive;
+    private final ITileDefinition driveT2;
     private final ITileDefinition chest;
     private final ITileDefinition iface;
     private final ITileDefinition fluidIface;
@@ -336,6 +334,12 @@ public final class ApiBlocks implements IBlocks {
         this.drive = registry.block("drive", BlockDrive::new)
                 .features(AEFeature.STORAGE_CELLS, AEFeature.ME_DRIVE)
                 .tileEntity(new TileEntityDefinition(TileDrive.class))
+                .useCustomItemModel()
+                .rendering(new DriveRendering())
+                .build();
+        this.driveT2 = registry.block("drive_t2", BlockDriveT2::new)
+                .features(AEFeature.STORAGE_CELLS, AEFeature.ME_DRIVE)
+                .tileEntity(new TileEntityDefinition(TileDriveT2.class))
                 .useCustomItemModel()
                 .rendering(new DriveRendering())
                 .build();
@@ -843,6 +847,11 @@ public final class ApiBlocks implements IBlocks {
     @Override
     public ITileDefinition drive() {
         return this.drive;
+    }
+
+    @Override
+    public ITileDefinition driveT2() {
+        return this.driveT2;
     }
 
     @Override
