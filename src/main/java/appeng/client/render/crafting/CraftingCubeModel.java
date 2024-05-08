@@ -46,6 +46,8 @@ class CraftingCubeModel implements IModel {
     private final static ResourceLocation UNIT_BASE = texture("unit_base");
     private final static ResourceLocation LIGHT_BASE = texture("light_base");
     private final static ResourceLocation ACCELERATOR_LIGHT = texture("accelerator_light");
+    private final static ResourceLocation ACCELERATOR_T2_LIGHT = texture("accelerator_t2_light");
+    private final static ResourceLocation ACCELERATOR_T3_LIGHT = texture("accelerator_t3_light");
     private final static ResourceLocation STORAGE_1K_LIGHT = texture("storage_1k_light");
     private final static ResourceLocation STORAGE_4K_LIGHT = texture("storage_4k_light");
     private final static ResourceLocation STORAGE_16K_LIGHT = texture("storage_16k_light");
@@ -72,7 +74,7 @@ class CraftingCubeModel implements IModel {
 
     @Override
     public Collection<ResourceLocation> getTextures() {
-        return ImmutableList.of(RING_CORNER, RING_SIDE_HOR, RING_SIDE_VER, UNIT_BASE, LIGHT_BASE, ACCELERATOR_LIGHT, STORAGE_1K_LIGHT, STORAGE_4K_LIGHT,
+        return ImmutableList.of(RING_CORNER, RING_SIDE_HOR, RING_SIDE_VER, UNIT_BASE, LIGHT_BASE, ACCELERATOR_LIGHT, ACCELERATOR_T2_LIGHT, ACCELERATOR_T3_LIGHT, STORAGE_1K_LIGHT, STORAGE_4K_LIGHT,
                 STORAGE_16K_LIGHT, STORAGE_64K_LIGHT, STORAGE_256K_LIGHT, STORAGE_1024K_LIGHT, STORAGE_4096K_LIGHT, STORAGE_16384K_LIGHT, MONITOR_BASE, MONITOR_LIGHT_DARK, MONITOR_LIGHT_MEDIUM, MONITOR_LIGHT_BRIGHT);
     }
 
@@ -87,6 +89,8 @@ class CraftingCubeModel implements IModel {
             case UNIT:
                 return new UnitBakedModel(format, ringCorner, ringSideHor, ringSideVer, bakedTextureGetter.apply(UNIT_BASE));
             case ACCELERATOR:
+            case ACCELERATOR_T2:
+            case ACCELERATOR_T3:
             case STORAGE_1K:
             case STORAGE_4K:
             case STORAGE_16K:
@@ -110,6 +114,10 @@ class CraftingCubeModel implements IModel {
         switch (type) {
             case ACCELERATOR:
                 return textureGetter.apply(ACCELERATOR_LIGHT);
+            case ACCELERATOR_T2:
+                return textureGetter.apply(ACCELERATOR_T2_LIGHT);
+            case ACCELERATOR_T3:
+                return textureGetter.apply(ACCELERATOR_T3_LIGHT);
             case STORAGE_1K:
                 return textureGetter.apply(STORAGE_1K_LIGHT);
             case STORAGE_4K:

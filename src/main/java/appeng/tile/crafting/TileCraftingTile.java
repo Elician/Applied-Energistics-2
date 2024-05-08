@@ -73,7 +73,14 @@ public class TileCraftingTile extends AENetworkTile implements IAEMultiBlock, IP
         Optional<ItemStack> is = Optional.empty();
 
         if (((TileCraftingTile) obj).isAccelerator()) {
-            is = AEApi.instance().definitions().blocks().craftingAccelerator().maybeStack(1);
+            int tier = ((TileCraftingTile) obj).getAcceleratorTier();
+            is = switch (tier) {
+                default -> throw new IllegalStateException("Unexpected value: " + tier);
+                case 1 ->  AEApi.instance().definitions().blocks().craftingAccelerator().maybeStack(1);
+                case 2 ->  AEApi.instance().definitions().blocks().craftingAcceleratorT2().maybeStack(1);
+                case 3 ->  AEApi.instance().definitions().blocks().craftingAcceleratorT3().maybeStack(1);
+            };
+
         } else {
             is = AEApi.instance().definitions().blocks().craftingUnit().maybeStack(1);
         }
@@ -101,7 +108,31 @@ public class TileCraftingTile extends AENetworkTile implements IAEMultiBlock, IP
         }
 
         final BlockCraftingUnit unit = (BlockCraftingUnit) this.world.getBlockState(this.pos).getBlock();
-        return unit.type == CraftingUnitType.ACCELERATOR;
+        return unit.type == CraftingUnitType.ACCELERATOR || unit.type == CraftingUnitType.ACCELERATOR_T2 || unit.type == CraftingUnitType.ACCELERATOR_T3;
+    }
+
+    public int getAcceleratorTier() {
+        if (this.world == null) {
+            return 0;
+        }
+
+        final BlockCraftingUnit unit = (BlockCraftingUnit) this.world.getBlockState(this.pos).getBlock();
+        return switch (unit.type) {
+            default -> 0;
+            case ACCELERATOR -> 1;
+            case ACCELERATOR_T2 -> 2;
+            case ACCELERATOR_T3 -> 3;
+        };
+    }
+
+    public int getAcceleratorRate() {
+        int tier = getAcceleratorTier();
+        return switch (tier) {
+            default -> 0;
+            case 1 -> 1;
+            case 2 -> 4;
+            case 3 -> 16;
+        };
     }
 
     @Override

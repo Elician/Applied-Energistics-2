@@ -53,6 +53,8 @@ tile.appliedenergistics2.crafting_storage_1024k.name=§b1024k§r Crafting Storag
 tile.appliedenergistics2.crafting_storage_4096k.name=§b4096k§r Crafting Storage
 tile.appliedenergistics2.crafting_storage_16384k.name=§b16384k§r Crafting Storage
 tile.appliedenergistics2.crafting_accelerator.name=Crafting Co-Processing Unit
+tile.appliedenergistics2.crafting_accelerator_t2.name=Crafting Co-Processing Unit §6T2
+tile.appliedenergistics2.crafting_accelerator_t3.name=Crafting Co-Processing Unit §aT3
 tile.appliedenergistics2.crafting_unit.name=Crafting Unit
 tile.appliedenergistics2.molecular_assembler.name=Molecular Assembler
 

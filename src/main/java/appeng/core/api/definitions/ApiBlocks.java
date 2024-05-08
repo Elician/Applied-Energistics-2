@@ -146,6 +146,8 @@ public final class ApiBlocks implements IBlocks {
     private final ITileDefinition energyCellCreative;
     private final ITileDefinition craftingUnit;
     private final ITileDefinition craftingAccelerator;
+    private final ITileDefinition craftingAcceleratorT2;
+    private final ITileDefinition craftingAcceleratorT3;
     private final ITileDefinition craftingStorage1k;
     private final ITileDefinition craftingStorage4k;
     private final ITileDefinition craftingStorage16k;
@@ -400,6 +402,16 @@ public final class ApiBlocks implements IBlocks {
                 .build();
         this.craftingAccelerator = crafting.block("crafting_accelerator", () -> new BlockCraftingUnit(CraftingUnitType.ACCELERATOR))
                 .rendering(new CraftingCubeRendering("crafting_accelerator", CraftingUnitType.ACCELERATOR))
+                .tileEntity(new TileEntityDefinition(TileCraftingTile.class, "crafting_unit"))
+                .useCustomItemModel()
+                .build();
+        this.craftingAcceleratorT2 = crafting.block("crafting_accelerator_t2", () -> new BlockCraftingUnit(CraftingUnitType.ACCELERATOR_T2))
+                .rendering(new CraftingCubeRendering("crafting_accelerator_t2", CraftingUnitType.ACCELERATOR_T2))
+                .tileEntity(new TileEntityDefinition(TileCraftingTile.class, "crafting_unit"))
+                .useCustomItemModel()
+                .build();
+        this.craftingAcceleratorT3 = crafting.block("crafting_accelerator_t3", () -> new BlockCraftingUnit(CraftingUnitType.ACCELERATOR_T3))
+                .rendering(new CraftingCubeRendering("crafting_accelerator_t3", CraftingUnitType.ACCELERATOR_T3))
                 .tileEntity(new TileEntityDefinition(TileCraftingTile.class, "crafting_unit"))
                 .useCustomItemModel()
                 .build();
@@ -901,6 +913,16 @@ public final class ApiBlocks implements IBlocks {
     @Override
     public ITileDefinition craftingAccelerator() {
         return this.craftingAccelerator;
+    }
+
+    @Override
+    public ITileDefinition craftingAcceleratorT2() {
+        return this.craftingAcceleratorT2;
+    }
+
+    @Override
+    public ITileDefinition craftingAcceleratorT3() {
+        return this.craftingAcceleratorT3;
     }
 
     @Override

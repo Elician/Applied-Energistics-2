@@ -173,6 +173,10 @@ public interface IBlocks
 
 	ITileDefinition craftingAccelerator();
 
+	ITileDefinition craftingAcceleratorT2();
+
+	ITileDefinition craftingAcceleratorT3();
+
 	ITileDefinition craftingStorage1k();
 
 	ITileDefinition craftingStorage4k();
