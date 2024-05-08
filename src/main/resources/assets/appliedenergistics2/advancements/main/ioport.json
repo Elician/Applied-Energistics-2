@@ -18,6 +18,22 @@
         },
         {
             "type": "minecraft:item_exists",
+            "item": "appliedenergistics2:storage_cell_256k"
+        },
+        {
+            "type": "minecraft:item_exists",
+            "item": "appliedenergistics2:storage_cell_1024k"
+        },
+        {
+            "type": "minecraft:item_exists",
+            "item": "appliedenergistics2:storage_cell_4096k"
+        },
+        {
+            "type": "minecraft:item_exists",
+            "item": "appliedenergistics2:storage_cell_16384k"
+        },
+        {
+            "type": "minecraft:item_exists",
             "item": "appliedenergistics2:material",
             "data": 13
         },

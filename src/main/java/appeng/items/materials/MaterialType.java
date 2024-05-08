@@ -94,6 +94,10 @@ public enum MaterialType {
     CELL4K_PART(36, "material_cell4k_part", EnumSet.of(AEFeature.STORAGE_CELLS)),
     CELL16K_PART(37, "material_cell16k_part", EnumSet.of(AEFeature.STORAGE_CELLS)),
     CELL64K_PART(38, "material_cell64k_part", EnumSet.of(AEFeature.STORAGE_CELLS)),
+    CELL256K_PART(162, "material_cell256k_part", EnumSet.of(AEFeature.STORAGE_CELLS)),
+    CELL1024K_PART(163, "material_cell1024k_part", EnumSet.of(AEFeature.STORAGE_CELLS)),
+    CELL4096K_PART(164, "material_cell4096k_part", EnumSet.of(AEFeature.STORAGE_CELLS)),
+    CELL16384K_PART(165, "material_cell16384k_part", EnumSet.of(AEFeature.STORAGE_CELLS)),
     EMPTY_STORAGE_CELL(39, "material_empty_storage_cell", EnumSet.of(AEFeature.STORAGE_CELLS)),
 
     WOODEN_GEAR(40, "material_wooden_gear", EnumSet.of(AEFeature.GRIND_STONE), "gearWood"),

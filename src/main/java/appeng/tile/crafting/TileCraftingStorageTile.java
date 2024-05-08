@@ -85,6 +85,14 @@ public class TileCraftingStorageTile extends TileCraftingTile {
                 return 16 * 1024;
             case STORAGE_64K:
                 return 64 * 1024;
+            case STORAGE_256K:
+                return 256 * 1024;
+            case STORAGE_1024K:
+                return 1024 * 1024;
+            case STORAGE_4096K:
+                return 4096 * 1024;
+            case STORAGE_16384K:
+                return 16384 * 1024;
         }
     }
 }

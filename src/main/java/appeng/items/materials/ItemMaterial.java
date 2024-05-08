@@ -316,6 +316,14 @@ public final class ItemMaterial extends AEBaseItem implements IStorageComponent,
                 return KILO_SCALAR * 16;
             case CELL64K_PART:
                 return KILO_SCALAR * 64;
+            case CELL256K_PART:
+                return KILO_SCALAR * 256;
+            case CELL1024K_PART:
+                return KILO_SCALAR * 1024;
+            case CELL4096K_PART:
+                return KILO_SCALAR * 4096;
+            case CELL16384K_PART:
+                return KILO_SCALAR * 16384;
             default:
         }
         return 0;
@@ -328,6 +336,10 @@ public final class ItemMaterial extends AEBaseItem implements IStorageComponent,
             case CELL4K_PART:
             case CELL16K_PART:
             case CELL64K_PART:
+            case CELL256K_PART:
+            case CELL1024K_PART:
+            case CELL4096K_PART:
+            case CELL16384K_PART:
                 return true;
             default:
         }

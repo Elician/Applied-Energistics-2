@@ -21,6 +21,22 @@
                 },
                 {
                     "type": "minecraft:item_exists",
+                    "item": "appliedenergistics2:crafting_storage_256k"
+                },
+                {
+                    "type": "minecraft:item_exists",
+                    "item": "appliedenergistics2:crafting_storage_1024k"
+                },
+                {
+                    "type": "minecraft:item_exists",
+                    "item": "appliedenergistics2:crafting_storage4096k"
+                },
+                {
+                    "type": "minecraft:item_exists",
+                    "item": "appliedenergistics2:crafting_storage_16384k"
+                },
+                {
+                    "type": "minecraft:item_exists",
                     "item": "appliedenergistics2:material",
                     "data": 13
                 },
@@ -108,6 +124,46 @@
                     }
                 ]
             }
+        },
+        "c256k": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "item": "appliedenergistics2:crafting_storage_256k"
+                    }
+                ]
+            }
+        },
+        "c1024k": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "item": "appliedenergistics2:crafting_storage_1024k"
+                    }
+                ]
+            }
+        },
+        "c4096k": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "item": "appliedenergistics2:crafting_storage_4096k"
+                    }
+                ]
+            }
+        },
+        "c16384k": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "item": "appliedenergistics2:crafting_storage_16384k"
+                    }
+                ]
+            }
         }
     },
     "requirements": [
@@ -115,7 +171,11 @@
             "c1k",
             "c4k",
             "c16k",
-            "c64k"
+            "c64k",
+            "c256k",
+            "c1024k",
+            "c4096k",
+            "c16384k"
         ]
     ]
 }
