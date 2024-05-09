@@ -56,6 +56,8 @@ tile.appliedenergistics2.crafting_storage_16384k.name=§b16384k§r Хранил�
 tile.appliedenergistics2.crafting_accelerator.name=Блок обработки крафта
 tile.appliedenergistics2.crafting_accelerator_t2.name=Блок обработки крафта §6T2
 tile.appliedenergistics2.crafting_accelerator_t3.name=Блок обработки крафта §aT3
+tile.appliedenergistics2.crafting_accelerator_t4.name=Блок обработки крафта §aT4
+tile.appliedenergistics2.crafting_accelerator_t5.name=Блок обработки крафта §aT5
 tile.appliedenergistics2.crafting_unit.name=Блок крафта
 tile.appliedenergistics2.molecular_assembler.name=Молекулярный сборщик
 

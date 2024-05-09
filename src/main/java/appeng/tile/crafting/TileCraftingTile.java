@@ -79,6 +79,8 @@ public class TileCraftingTile extends AENetworkTile implements IAEMultiBlock, IP
                 case 1 ->  AEApi.instance().definitions().blocks().craftingAccelerator().maybeStack(1);
                 case 2 ->  AEApi.instance().definitions().blocks().craftingAcceleratorT2().maybeStack(1);
                 case 3 ->  AEApi.instance().definitions().blocks().craftingAcceleratorT3().maybeStack(1);
+                case 4 ->  AEApi.instance().definitions().blocks().craftingAcceleratorT4().maybeStack(1);
+                case 5 ->  AEApi.instance().definitions().blocks().craftingAcceleratorT5().maybeStack(1);
             };
 
         } else {
@@ -108,7 +110,7 @@ public class TileCraftingTile extends AENetworkTile implements IAEMultiBlock, IP
         }
 
         final BlockCraftingUnit unit = (BlockCraftingUnit) this.world.getBlockState(this.pos).getBlock();
-        return unit.type == CraftingUnitType.ACCELERATOR || unit.type == CraftingUnitType.ACCELERATOR_T2 || unit.type == CraftingUnitType.ACCELERATOR_T3;
+        return unit.type == CraftingUnitType.ACCELERATOR || unit.type == CraftingUnitType.ACCELERATOR_T2 || unit.type == CraftingUnitType.ACCELERATOR_T3 || unit.type == CraftingUnitType.ACCELERATOR_T4 || unit.type == CraftingUnitType.ACCELERATOR_T5;
     }
 
     public int getAcceleratorTier() {
@@ -122,6 +124,8 @@ public class TileCraftingTile extends AENetworkTile implements IAEMultiBlock, IP
             case ACCELERATOR -> 1;
             case ACCELERATOR_T2 -> 2;
             case ACCELERATOR_T3 -> 3;
+            case ACCELERATOR_T4 -> 4;
+            case ACCELERATOR_T5 -> 5;
         };
     }
 
@@ -132,6 +136,8 @@ public class TileCraftingTile extends AENetworkTile implements IAEMultiBlock, IP
             case 1 -> 1;
             case 2 -> 4;
             case 3 -> 16;
+            case 4 -> 64;
+            case 5 -> 256;
         };
     }
 

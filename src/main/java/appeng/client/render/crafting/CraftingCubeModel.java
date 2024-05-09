@@ -40,111 +40,119 @@ import java.util.function.Function;
  */
 class CraftingCubeModel implements IModel {
 
-    private final static ResourceLocation RING_CORNER = texture("ring_corner");
-    private final static ResourceLocation RING_SIDE_HOR = texture("ring_side_hor");
-    private final static ResourceLocation RING_SIDE_VER = texture("ring_side_ver");
-    private final static ResourceLocation UNIT_BASE = texture("unit_base");
-    private final static ResourceLocation LIGHT_BASE = texture("light_base");
-    private final static ResourceLocation ACCELERATOR_LIGHT = texture("accelerator_light");
-    private final static ResourceLocation ACCELERATOR_T2_LIGHT = texture("accelerator_t2_light");
-    private final static ResourceLocation ACCELERATOR_T3_LIGHT = texture("accelerator_t3_light");
-    private final static ResourceLocation STORAGE_1K_LIGHT = texture("storage_1k_light");
-    private final static ResourceLocation STORAGE_4K_LIGHT = texture("storage_4k_light");
-    private final static ResourceLocation STORAGE_16K_LIGHT = texture("storage_16k_light");
-    private final static ResourceLocation STORAGE_64K_LIGHT = texture("storage_64k_light");
-    private final static ResourceLocation STORAGE_256K_LIGHT = texture("storage_256k_light");
-    private final static ResourceLocation STORAGE_1024K_LIGHT = texture("storage_1024k_light");
-    private final static ResourceLocation STORAGE_4096K_LIGHT = texture("storage_4096k_light");
-    private final static ResourceLocation STORAGE_16384K_LIGHT = texture("storage_16384k_light");
-    private final static ResourceLocation MONITOR_BASE = texture("monitor_base");
-    private final static ResourceLocation MONITOR_LIGHT_DARK = texture("monitor_light_dark");
-    private final static ResourceLocation MONITOR_LIGHT_MEDIUM = texture("monitor_light_medium");
-    private final static ResourceLocation MONITOR_LIGHT_BRIGHT = texture("monitor_light_bright");
+  private final static ResourceLocation RING_CORNER = texture("ring_corner");
+  private final static ResourceLocation RING_SIDE_HOR = texture("ring_side_hor");
+  private final static ResourceLocation RING_SIDE_VER = texture("ring_side_ver");
+  private final static ResourceLocation UNIT_BASE = texture("unit_base");
+  private final static ResourceLocation LIGHT_BASE = texture("light_base");
+  private final static ResourceLocation ACCELERATOR_LIGHT = texture("accelerator_light");
+  private final static ResourceLocation ACCELERATOR_T2_LIGHT = texture("accelerator_t2_light");
+  private final static ResourceLocation ACCELERATOR_T3_LIGHT = texture("accelerator_t3_light");
+  private final static ResourceLocation ACCELERATOR_T4_LIGHT = texture("accelerator_t4_light");
+  private final static ResourceLocation ACCELERATOR_T5_LIGHT = texture("accelerator_t5_light");
+  private final static ResourceLocation STORAGE_1K_LIGHT = texture("storage_1k_light");
+  private final static ResourceLocation STORAGE_4K_LIGHT = texture("storage_4k_light");
+  private final static ResourceLocation STORAGE_16K_LIGHT = texture("storage_16k_light");
+  private final static ResourceLocation STORAGE_64K_LIGHT = texture("storage_64k_light");
+  private final static ResourceLocation STORAGE_256K_LIGHT = texture("storage_256k_light");
+  private final static ResourceLocation STORAGE_1024K_LIGHT = texture("storage_1024k_light");
+  private final static ResourceLocation STORAGE_4096K_LIGHT = texture("storage_4096k_light");
+  private final static ResourceLocation STORAGE_16384K_LIGHT = texture("storage_16384k_light");
+  private final static ResourceLocation MONITOR_BASE = texture("monitor_base");
+  private final static ResourceLocation MONITOR_LIGHT_DARK = texture("monitor_light_dark");
+  private final static ResourceLocation MONITOR_LIGHT_MEDIUM = texture("monitor_light_medium");
+  private final static ResourceLocation MONITOR_LIGHT_BRIGHT = texture("monitor_light_bright");
 
-    private final BlockCraftingUnit.CraftingUnitType type;
+  private final BlockCraftingUnit.CraftingUnitType type;
 
-    CraftingCubeModel(BlockCraftingUnit.CraftingUnitType type) {
-        this.type = type;
+  CraftingCubeModel(BlockCraftingUnit.CraftingUnitType type) {
+    this.type = type;
+  }
+
+  @Override
+  public Collection<ResourceLocation> getDependencies() {
+    return Collections.emptyList();
+  }
+
+  @Override
+  public Collection<ResourceLocation> getTextures() {
+    return ImmutableList.of(RING_CORNER, RING_SIDE_HOR, RING_SIDE_VER, UNIT_BASE, LIGHT_BASE, ACCELERATOR_LIGHT, ACCELERATOR_T2_LIGHT, ACCELERATOR_T3_LIGHT, ACCELERATOR_T4_LIGHT, ACCELERATOR_T5_LIGHT, STORAGE_1K_LIGHT, STORAGE_4K_LIGHT,
+        STORAGE_16K_LIGHT, STORAGE_64K_LIGHT, STORAGE_256K_LIGHT, STORAGE_1024K_LIGHT, STORAGE_4096K_LIGHT, STORAGE_16384K_LIGHT, MONITOR_BASE, MONITOR_LIGHT_DARK, MONITOR_LIGHT_MEDIUM, MONITOR_LIGHT_BRIGHT);
+  }
+
+  @Override
+  public IBakedModel bake(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
+    // Retrieve our textures and pass them on to the baked model
+    TextureAtlasSprite ringCorner = bakedTextureGetter.apply(RING_CORNER);
+    TextureAtlasSprite ringSideHor = bakedTextureGetter.apply(RING_SIDE_HOR);
+    TextureAtlasSprite ringSideVer = bakedTextureGetter.apply(RING_SIDE_VER);
+
+    switch (this.type) {
+      case UNIT:
+        return new UnitBakedModel(format, ringCorner, ringSideHor, ringSideVer, bakedTextureGetter.apply(UNIT_BASE));
+      case ACCELERATOR:
+      case ACCELERATOR_T2:
+      case ACCELERATOR_T3:
+      case ACCELERATOR_T4:
+      case ACCELERATOR_T5:
+      case STORAGE_1K:
+      case STORAGE_4K:
+      case STORAGE_16K:
+      case STORAGE_64K:
+      case STORAGE_256K:
+      case STORAGE_1024K:
+      case STORAGE_4096K:
+      case STORAGE_16384K:
+        return new LightBakedModel(format, ringCorner, ringSideHor, ringSideVer, bakedTextureGetter
+            .apply(LIGHT_BASE), getLightTexture(bakedTextureGetter, this.type));
+      case MONITOR:
+        return new MonitorBakedModel(format, ringCorner, ringSideHor, ringSideVer, bakedTextureGetter.apply(UNIT_BASE), bakedTextureGetter
+            .apply(MONITOR_BASE), bakedTextureGetter.apply(
+            MONITOR_LIGHT_DARK), bakedTextureGetter.apply(MONITOR_LIGHT_MEDIUM), bakedTextureGetter.apply(MONITOR_LIGHT_BRIGHT));
+      default:
+        throw new IllegalArgumentException("Unsupported crafting unit type: " + this.type);
     }
+  }
 
-    @Override
-    public Collection<ResourceLocation> getDependencies() {
-        return Collections.emptyList();
+  private static TextureAtlasSprite getLightTexture(Function<ResourceLocation, TextureAtlasSprite> textureGetter, BlockCraftingUnit.CraftingUnitType type) {
+    switch (type) {
+      case ACCELERATOR:
+        return textureGetter.apply(ACCELERATOR_LIGHT);
+      case ACCELERATOR_T2:
+        return textureGetter.apply(ACCELERATOR_T2_LIGHT);
+      case ACCELERATOR_T3:
+        return textureGetter.apply(ACCELERATOR_T3_LIGHT);
+      case ACCELERATOR_T4:
+        return textureGetter.apply(ACCELERATOR_T4_LIGHT);
+      case ACCELERATOR_T5:
+        return textureGetter.apply(ACCELERATOR_T5_LIGHT);
+      case STORAGE_1K:
+        return textureGetter.apply(STORAGE_1K_LIGHT);
+      case STORAGE_4K:
+        return textureGetter.apply(STORAGE_4K_LIGHT);
+      case STORAGE_16K:
+        return textureGetter.apply(STORAGE_16K_LIGHT);
+      case STORAGE_64K:
+        return textureGetter.apply(STORAGE_64K_LIGHT);
+      case STORAGE_256K:
+        return textureGetter.apply(STORAGE_256K_LIGHT);
+      case STORAGE_1024K:
+        return textureGetter.apply(STORAGE_1024K_LIGHT);
+      case STORAGE_4096K:
+        return textureGetter.apply(STORAGE_4096K_LIGHT);
+      case STORAGE_16384K:
+        return textureGetter.apply(STORAGE_16384K_LIGHT);
+      default:
+        throw new IllegalArgumentException("Crafting unit type " + type + " does not use a light texture.");
     }
+  }
 
-    @Override
-    public Collection<ResourceLocation> getTextures() {
-        return ImmutableList.of(RING_CORNER, RING_SIDE_HOR, RING_SIDE_VER, UNIT_BASE, LIGHT_BASE, ACCELERATOR_LIGHT, ACCELERATOR_T2_LIGHT, ACCELERATOR_T3_LIGHT, STORAGE_1K_LIGHT, STORAGE_4K_LIGHT,
-                STORAGE_16K_LIGHT, STORAGE_64K_LIGHT, STORAGE_256K_LIGHT, STORAGE_1024K_LIGHT, STORAGE_4096K_LIGHT, STORAGE_16384K_LIGHT, MONITOR_BASE, MONITOR_LIGHT_DARK, MONITOR_LIGHT_MEDIUM, MONITOR_LIGHT_BRIGHT);
-    }
+  @Override
+  public IModelState getDefaultState() {
+    return TRSRTransformation.identity();
+  }
 
-    @Override
-    public IBakedModel bake(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
-        // Retrieve our textures and pass them on to the baked model
-        TextureAtlasSprite ringCorner = bakedTextureGetter.apply(RING_CORNER);
-        TextureAtlasSprite ringSideHor = bakedTextureGetter.apply(RING_SIDE_HOR);
-        TextureAtlasSprite ringSideVer = bakedTextureGetter.apply(RING_SIDE_VER);
-
-        switch (this.type) {
-            case UNIT:
-                return new UnitBakedModel(format, ringCorner, ringSideHor, ringSideVer, bakedTextureGetter.apply(UNIT_BASE));
-            case ACCELERATOR:
-            case ACCELERATOR_T2:
-            case ACCELERATOR_T3:
-            case STORAGE_1K:
-            case STORAGE_4K:
-            case STORAGE_16K:
-            case STORAGE_64K:
-            case STORAGE_256K:
-            case STORAGE_1024K:
-            case STORAGE_4096K:
-            case STORAGE_16384K:
-                return new LightBakedModel(format, ringCorner, ringSideHor, ringSideVer, bakedTextureGetter
-                        .apply(LIGHT_BASE), getLightTexture(bakedTextureGetter, this.type));
-            case MONITOR:
-                return new MonitorBakedModel(format, ringCorner, ringSideHor, ringSideVer, bakedTextureGetter.apply(UNIT_BASE), bakedTextureGetter
-                        .apply(MONITOR_BASE), bakedTextureGetter.apply(
-                        MONITOR_LIGHT_DARK), bakedTextureGetter.apply(MONITOR_LIGHT_MEDIUM), bakedTextureGetter.apply(MONITOR_LIGHT_BRIGHT));
-            default:
-                throw new IllegalArgumentException("Unsupported crafting unit type: " + this.type);
-        }
-    }
-
-    private static TextureAtlasSprite getLightTexture(Function<ResourceLocation, TextureAtlasSprite> textureGetter, BlockCraftingUnit.CraftingUnitType type) {
-        switch (type) {
-            case ACCELERATOR:
-                return textureGetter.apply(ACCELERATOR_LIGHT);
-            case ACCELERATOR_T2:
-                return textureGetter.apply(ACCELERATOR_T2_LIGHT);
-            case ACCELERATOR_T3:
-                return textureGetter.apply(ACCELERATOR_T3_LIGHT);
-            case STORAGE_1K:
-                return textureGetter.apply(STORAGE_1K_LIGHT);
-            case STORAGE_4K:
-                return textureGetter.apply(STORAGE_4K_LIGHT);
-            case STORAGE_16K:
-                return textureGetter.apply(STORAGE_16K_LIGHT);
-            case STORAGE_64K:
-                return textureGetter.apply(STORAGE_64K_LIGHT);
-            case STORAGE_256K:
-                return textureGetter.apply(STORAGE_256K_LIGHT);
-            case STORAGE_1024K:
-                return textureGetter.apply(STORAGE_1024K_LIGHT);
-            case STORAGE_4096K:
-                return textureGetter.apply(STORAGE_4096K_LIGHT);
-            case STORAGE_16384K:
-                return textureGetter.apply(STORAGE_16384K_LIGHT);
-            default:
-                throw new IllegalArgumentException("Crafting unit type " + type + " does not use a light texture.");
-        }
-    }
-
-    @Override
-    public IModelState getDefaultState() {
-        return TRSRTransformation.identity();
-    }
-
-    private static ResourceLocation texture(String name) {
-        return new ResourceLocation(AppEng.MOD_ID, "blocks/crafting/" + name);
-    }
+  private static ResourceLocation texture(String name) {
+    return new ResourceLocation(AppEng.MOD_ID, "blocks/crafting/" + name);
+  }
 }
