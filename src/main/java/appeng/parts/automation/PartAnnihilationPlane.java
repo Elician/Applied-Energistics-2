@@ -65,6 +65,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
+import net.minecraftforge.fml.common.Loader;
+import ru.noxus.rghelper.RegionUtils;
 
 import java.util.List;
 
@@ -416,9 +418,13 @@ public class PartAnnihilationPlane extends PartBasicState implements IGridTickab
         final boolean ignoreBlocks = state.getBlock() == Blocks.BEDROCK || state.getBlock() == Blocks.END_PORTAL || state
                 .getBlock() == Blocks.END_PORTAL_FRAME || state.getBlock() == Blocks.COMMAND_BLOCK;
 
-        return !ignoreMaterials && !ignoreBlocks && hardness >= 0f && !w.isAirBlock(pos) && w.isBlockLoaded(pos) && w.canMineBlockBody(
-                Platform.getPlayer(w),
-                pos);
+        boolean canMineBlock;
+        if (Loader.isModLoaded("noxus_rghelper")) {
+            canMineBlock = RegionUtils.checkClaimPermission(this.getOwnerUUID(), w, pos);
+        } else {
+            canMineBlock = w.canMineBlockBody(Platform.getPlayer(w), pos);
+        }
+        return !ignoreMaterials && !ignoreBlocks && hardness >= 0f && !w.isAirBlock(pos) && w.isBlockLoaded(pos) && canMineBlock;
     }
 
     protected List<ItemStack> obtainBlockDrops(final WorldServer w, final BlockPos pos) {

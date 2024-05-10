@@ -457,8 +457,11 @@ repositories {
         }
     }
     mavenLocal() // Must be last for caching to work
-}
 
+    flatDir {
+        dir 'libs'
+    }
+}
 
 // Dependencies
 
@@ -477,6 +480,8 @@ configurations {
 
 String mixinProviderSpec = 'zone.rong:mixinbooter:8.9'
 dependencies {
+
+    compileOnly name: "noxus_rghelper-1.0.6"
     if (usesMixins.toBoolean()) {
         annotationProcessor 'org.ow2.asm:asm-debug-all:5.2'
         // should use 24.1.1 but 30.0+ has a vulnerability fix

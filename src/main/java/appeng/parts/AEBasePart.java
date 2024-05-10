@@ -77,6 +77,7 @@ public abstract class AEBasePart implements IPart, IGridProxyable, IActionHost, 
     private TileEntity tile = null;
     private IPartHost host = null;
     private AEPartLocation side = null;
+    private UUID ownerUUID;
 
     public AEBasePart(final ItemStack is) {
         Preconditions.checkNotNull(is);
@@ -207,12 +208,18 @@ public abstract class AEBasePart implements IPart, IGridProxyable, IActionHost, 
 
     @Override
     public void readFromNBT(final NBTTagCompound data) {
+        this.ownerUUID = data.getUniqueId("ownerUUID");
         this.proxy.readFromNBT(data);
     }
 
     @Override
     public void writeToNBT(final NBTTagCompound data) {
+        data.setUniqueId("ownerUUID", this.ownerUUID);
         this.proxy.writeToNBT(data);
+    }
+
+    public UUID getOwnerUUID() {
+        return ownerUUID;
     }
 
     @Override
@@ -477,6 +484,7 @@ public abstract class AEBasePart implements IPart, IGridProxyable, IActionHost, 
 
     @Override
     public void onPlacement(final EntityPlayer player, final EnumHand hand, final ItemStack held, final AEPartLocation side) {
+        this.ownerUUID = player.getUniqueID();
         this.proxy.setOwner(player);
     }
 
